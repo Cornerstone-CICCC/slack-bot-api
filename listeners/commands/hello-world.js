@@ -3,7 +3,7 @@ const helloWorldCallback = async ({ ack, payload, context }) => {
 
   try {
     await ack();
-    const result = await app.client.chat.postMessage({
+    await respond({
       token: context.botToken,
       // Channel to send message to
       channel: payload.channel_id,
@@ -28,7 +28,7 @@ const helloWorldCallback = async ({ ack, payload, context }) => {
       // Text in the notification
       text: "Message from Test App",
     });
-    console.log(result);
+    return;
   } catch (error) {
     console.error(error);
   }
