@@ -21,7 +21,7 @@ const helloWorldCallback = async ({ ack, payload, context, respond }) => {
               type: "plain_text",
               text: "Click me!",
             },
-            action_id: "button_abc",
+            action_id: "sample_action_id",
           },
         },
       ],
