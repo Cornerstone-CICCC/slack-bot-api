@@ -8,9 +8,9 @@ const buttonAbcCallback = async ({ ack, body, context, client }) => {
     await client.views.update({
       token: context.botToken,
       // ts of message to update
-      ts: body.message.ts,
+      ts: body.container.message_ts,
       // Channel of message
-      channel: body.channel.id,
+      channel: body.container.channel_id,
       blocks: [
         {
           type: "section",
