@@ -4,7 +4,7 @@ const buttonAbcCallback = async ({ ack, body, context }) => {
 
   try {
     // Update the message
-    const result = await app.client.chat.update({
+    await client.views.update({
       token: context.botToken,
       // ts of message to update
       ts: body.message.ts,
@@ -21,7 +21,7 @@ const buttonAbcCallback = async ({ ack, body, context }) => {
       ],
       text: "Message from Test App",
     });
-    console.log("success", result);
+    return;
   } catch (error) {
     console.error(error);
   }
