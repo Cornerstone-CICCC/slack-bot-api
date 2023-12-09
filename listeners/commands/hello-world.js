@@ -1,4 +1,4 @@
-const helloWorldCallback = async ({ ack, payload, context }) => {
+const helloWorldCallback = async ({ ack, payload, context, respond }) => {
   // Acknowledge the command request
 
   try {
