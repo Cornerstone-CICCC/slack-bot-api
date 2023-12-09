@@ -1,8 +1,9 @@
 const buttonAbcCallback = async ({ ack, body, context, client }) => {
   // Acknowledge the button request
-  ack();
 
   try {
+    await ack();
+    console.log("body", body);
     // Update the message
     await client.views.update({
       token: context.botToken,
