@@ -1,4 +1,4 @@
-const buttonAbcCallback = async ({ ack, body, context }) => {
+const buttonAbcCallback = async ({ ack, body, context, client }) => {
   // Acknowledge the button request
   ack();
 
