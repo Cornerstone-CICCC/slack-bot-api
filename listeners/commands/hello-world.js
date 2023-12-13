@@ -1,9 +1,9 @@
-const helloWorldCallback = async ({ ack, payload, context, respond }) => {
+const helloWorldCallback = async ({ ack, payload, context, say }) => {
   // Acknowledge the command request
 
   try {
     await ack();
-    await respond({
+    await say({
       token: context.botToken,
       // Channel to send message to
       channel: payload.channel_id,
