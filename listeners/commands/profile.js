@@ -11,7 +11,7 @@ const profileCommandCallback = async ({ ack, respond, client, payload }) => {
     const email = "head.tech@ciccc.ca";
     const endpoint = `studentsData?filter={"student_email":"${email}"}`;
     const response = await getReq(endpoint);
-    console.log("response", response);
+    console.log("response get student", response);
     // const student = response.data[0];
     // console.log("student", student);
 
