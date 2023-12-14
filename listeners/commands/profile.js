@@ -5,7 +5,10 @@ const profileCommandCallback = async ({ ack, respond, client }) => {
     await ack();
     await respond("testing1");
     // get student email from slack
-    const email = await client.users.profile.get("email");
+    console.log("client", client);
+    const email = await client.users.profile.get({
+      user: client.user_id,
+    });
     console.log("email", email);
     const endpoint = `studentsData?filter={"student_email":"${email}"}}`;
     const response = await getReq(endpoint);
