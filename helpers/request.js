@@ -9,8 +9,7 @@ const getReq = async (endpoint) => {
         password: process.env.API_PASSWORD,
       },
     });
-    const jsonRes = await response.json();
-    return jsonRes;
+    return response.data;
   } catch (error) {
     console.error(`error at fetching ${url}`, error);
   }
