@@ -1,19 +1,16 @@
 const axios = require("axios");
 
 const getReq = async (endpoint) => {
-  console.log("requesting");
   const url = `${process.env.API_URL}/${endpoint}`;
-  console.log("url", url);
   try {
-    console.log("before fetching");
     const response = await axios.get(url, {
       auth: {
         username: process.env.API_USERNAME,
         password: process.env.API_PASSWORD,
       },
     });
-    console.log("after fetching", response);
-    return response;
+    const jsonRes = await response.json();
+    return jsonRes;
   } catch (error) {
     console.error(`error at fetching ${url}`, error);
   }
