@@ -1,8 +1,6 @@
 const { getReq } = require("../../helpers/request");
 
-
 const profileCommandCallback = async ({ ack, respond, client, payload }) => {
-
   try {
     await ack();
     await respond("testing1");
@@ -10,7 +8,7 @@ const profileCommandCallback = async ({ ack, respond, client, payload }) => {
     console.log("payload", payload);
     console.log("user_id", payload.user_id);
     const info = await client.users.info({
-      user: client.user_id,
+      user: payload.user_id,
     });
     console.log("info", info);
     // const endpoint = `studentsData?filter={"student_email":"${email}"}}`;
