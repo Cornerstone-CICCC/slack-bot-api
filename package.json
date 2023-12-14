@@ -1,6 +1,9 @@
 {
   "name": "ciccc-mod-slack",
   "version": "1.0.0",
+  "prisma": {
+    "seed": "node prisma/seeds/seeds.js"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
