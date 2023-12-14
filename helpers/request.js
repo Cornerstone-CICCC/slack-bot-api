@@ -8,12 +8,15 @@ const getReq = async (endpoint) => {
         process.env.API_USERNAME + ":" + process.env.API_PASSWORD
       ).toString("base64")
   );
-
-  const response = await fetch(url, {
-    method: "GET",
-    headers,
-  });
-  return response.json();
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers,
+    });
+    return response.json();
+  } catch (error) {
+    console.error(`error at fetching ${url}`, error);
+  }
 };
 
 const postReq = async (endpoint, body) => {
