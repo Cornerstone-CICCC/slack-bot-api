@@ -6,14 +6,14 @@ const profileCommandCallback = async ({ ack, respond, client }) => {
     await respond("testing1");
     // get student email from slack
     console.log("client", client);
-    const email = await client.users.profile.get({
+    const info = await client.users.info({
       user: client.user_id,
     });
-    console.log("email", email);
-    const endpoint = `studentsData?filter={"student_email":"${email}"}}`;
-    const response = await getReq(endpoint);
-    const student = response.data[0];
-    console.log("student", student);
+    console.log("info", info);
+    // const endpoint = `studentsData?filter={"student_email":"${email}"}}`;
+    // const response = await getReq(endpoint);
+    // const student = response.data[0];
+    // console.log("student", student);
     // get student from classe365
     // if found, save it on db
     // if not, ask student to update email at classe365, same as in slack
