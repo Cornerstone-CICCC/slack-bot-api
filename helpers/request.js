@@ -13,7 +13,7 @@ const getReq = async (endpoint) => {
       method: "GET",
       headers,
     });
-    return response.json();
+    return response;
   } catch (error) {
     console.error(`error at fetching ${url}`, error);
   }
