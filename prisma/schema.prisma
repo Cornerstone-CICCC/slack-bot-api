@@ -11,7 +11,33 @@ datasource db {
 }
 
 model Program {
+  id        Int       @id @default(autoincrement())
+  title     String
+  code      String?
+  classeId  Int?
+  createdAt DateTime  @default(now())
+  sections  Section[]
+}
+
+model Section {
+  id        Int       @id @default(autoincrement())
+  title     String
+  code      String?
+  classeId  Int?
+  programId Int
+  createdAt DateTime  @default(now())
+  Program   Program   @relation(fields: [programId], references: [id])
+  subjects  Subject[]
+}
+
+model Subject {
   id        Int      @id @default(autoincrement())
   title     String
+  code      String?
+  credits   Int?
+  type      String
+  classeId  Int?
+  sectionId Int
   createdAt DateTime @default(now())
+  Section   Section  @relation(fields: [sectionId], references: [id])
 }
