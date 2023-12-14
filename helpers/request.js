@@ -1,4 +1,5 @@
 const getReq = async (endpoint) => {
+  console.log("requesting");
   const url = `${process.env.API_URL}/${endpoint}`;
   const headers = new Headers();
   headers.set(
@@ -10,10 +11,12 @@ const getReq = async (endpoint) => {
   );
   console.log("url", url);
   try {
+    console.log("before fetching");
     const response = await fetch(url, {
       method: "GET",
       headers,
     });
+    console.log("after fetching", response);
     return response;
   } catch (error) {
     console.error(`error at fetching ${url}`, error);
