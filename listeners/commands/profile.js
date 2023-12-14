@@ -1,13 +1,13 @@
 const { getReq } = require("../../helpers/request");
 
-const profileCommandCallback = async ({ ack, respond, user_id }) => {
+const profileCommandCallback = async ({ ack, respond, client }) => {
   try {
     await ack();
     await respond("testing1");
     // get student email from slack
-    console.log("user_id", user_id);
+    console.log("client", client);
     const info = await client.users.info({
-      user: user_id,
+      user: client.user_id,
     });
     console.log("info", info);
     // const endpoint = `studentsData?filter={"student_email":"${email}"}}`;
