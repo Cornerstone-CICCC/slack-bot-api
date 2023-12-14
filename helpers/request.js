@@ -8,6 +8,7 @@ const getReq = async (endpoint) => {
         process.env.API_USERNAME + ":" + process.env.API_PASSWORD
       ).toString("base64")
   );
+  console.log("url", url);
   try {
     const response = await fetch(url, {
       method: "GET",
