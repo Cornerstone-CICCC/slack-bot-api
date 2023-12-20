@@ -11,7 +11,15 @@ const profileCommandCallback = async ({ ack, respond, client, payload }) => {
     const email = "head.tech@ciccc.ca";
     const endpoint = `studentsData?filter={"student_email":"${email}"}`;
     const response = await getReq(endpoint);
-    console.log("response get student", response);
+    if (response.data.length === 0) {
+      await respond(
+        "I don't think I remember you. Please make sure your email on Slack is the same as the one on classe365."
+      );
+      return;
+    }
+    const student = response.data[0];
+    await respond(`Hello ${student.student_name}!
+        Your student ID is ${student.student_id}.`);
     // const student = response.data[0];
     // console.log("student", student);
 
