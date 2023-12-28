@@ -11,33 +11,115 @@ datasource db {
 }
 
 model Program {
-  id        Int       @id @default(autoincrement())
-  title     String
-  code      String?
-  classeId  Int?
-  createdAt DateTime  @default(now())
-  sections  Section[]
+  id                Int                 @id @default(autoincrement())
+  title             String
+  code              String?
+  classeId          Int?                @unique
+  createdAt         DateTime            @default(now())
+  sections          Section[]
+  SubjectEnrollment SubjectEnrollment[]
 }
 
 model Section {
-  id        Int       @id @default(autoincrement())
-  title     String
-  code      String?
-  classeId  Int?
-  programId Int
-  createdAt DateTime  @default(now())
-  Program   Program   @relation(fields: [programId], references: [id])
-  subjects  Subject[]
+  id                Int                 @id @default(autoincrement())
+  title             String
+  code              String?
+  classeId          Int?                @unique
+  programId         Int
+  createdAt         DateTime            @default(now())
+  Program           Program             @relation(fields: [programId], references: [id])
+  subjects          Subject[]
+  SubjectEnrollment SubjectEnrollment[]
+  SectionEnrollment SectionEnrollment[]
 }
 
 model Subject {
-  id        Int      @id @default(autoincrement())
-  title     String
-  code      String?
-  credits   Int?
-  type      String
-  classeId  Int?
-  sectionId Int
-  createdAt DateTime @default(now())
-  Section   Section  @relation(fields: [sectionId], references: [id])
+  id                Int                 @id @default(autoincrement())
+  title             String
+  code              String?
+  credits           Int?
+  type              String
+  classeId          Int?                @unique
+  sectionId         Int
+  createdAt         DateTime            @default(now())
+  Section           Section             @relation(fields: [sectionId], references: [id])
+  Grade             Grade[]
+  SubjectEnrollment SubjectEnrollment[]
+}
+
+model Student {
+  id                Int                 @id @default(autoincrement())
+  firstName         String
+  lastName          String
+  email             String              @unique
+  gender            String?
+  dob               DateTime?
+  address           String?
+  zipCode           String?
+  contact           String?
+  advisorName       String?
+  citizenship       String?
+  sinNumber         String?
+  studentPermitDate DateTime?
+  workPermitDate    DateTime?
+  classeId          Int                 @unique
+  studentId         Int
+  status            String?             @default("active")
+  enrolledProgram   String?
+  createdAt         DateTime            @default(now())
+  lastUpdatedAt     DateTime            @default(now())
+  SubjectEnrollment SubjectEnrollment[]
+  Grade             Grade[]
+  SectionEnrollment SectionEnrollment[]
+}
+
+model SubjectEnrollment {
+  id                        Int     @id @default(autoincrement())
+  studentId                 Int
+  subjectId                 Int
+  classeSubjectId           Int
+  sectionId                 Int
+  classeSectionId           Int
+  programId                 Int
+  classeProgramId           Int
+  classeProgramEnrollmentId Int
+  status                    String? @default("Not Set")
+  Student                   Student @relation(fields: [studentId], references: [id])
+  Subject                   Subject @relation(fields: [subjectId], references: [id])
+  Section                   Section @relation(fields: [sectionId], references: [id])
+  Program                   Program @relation(fields: [programId], references: [id])
+}
+
+model SectionEnrollment {
+  id              Int     @id @default(autoincrement())
+  studentId       Int
+  sectionId       Int
+  classeSectionId Int
+  classeId        Int
+  status          String? @default("Not Set")
+  Student         Student @relation(fields: [studentId], references: [id])
+  Section         Section @relation(fields: [sectionId], references: [id])
+}
+
+model Grade {
+  id           Int        @id @default(autoincrement())
+  studentId    Int
+  score        Int
+  subjectId    Int
+  assessmentId Int
+  Assessment   Assessment @relation(fields: [assessmentId], references: [id])
+  Subject      Subject    @relation(fields: [subjectId], references: [id])
+  Student      Student    @relation(fields: [studentId], references: [id])
+}
+
+model Assessment {
+  id            Int      @id @default(autoincrement())
+  name          String
+  classeId      Int      @unique
+  weight        Int
+  type          String
+  points        Int
+  passingPoints Int
+  createdAt     DateTime @default(now())
+  Grade         Grade[]
 }
