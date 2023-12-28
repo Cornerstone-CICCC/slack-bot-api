@@ -10,7 +10,7 @@ const profileCommandCallback = async ({ ack, respond, client, payload }) => {
     // });
     // const slackEmail = info.user.profile.email;
     const slackEmail = "head.tech@ciccc.ca";
-    let studentFound = await prisma.student.find({
+    let studentFound = await prisma.student.findUnique({
       where: {
         email: slackEmail,
       },
