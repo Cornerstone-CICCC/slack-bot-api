@@ -91,14 +91,15 @@ model SubjectEnrollment {
 }
 
 model SectionEnrollment {
-  id              Int     @id @default(autoincrement())
+  id              Int       @id @default(autoincrement())
   studentId       Int
   sectionId       Int
   classeSectionId Int
   classeId        Int
-  status          String? @default("Not Set")
-  Student         Student @relation(fields: [studentId], references: [id])
-  Section         Section @relation(fields: [sectionId], references: [id])
+  status          String?   @default("Not Set")
+  enrolledAt      DateTime?
+  Student         Student   @relation(fields: [studentId], references: [id])
+  Section         Section   @relation(fields: [sectionId], references: [id])
 }
 
 model Grade {
