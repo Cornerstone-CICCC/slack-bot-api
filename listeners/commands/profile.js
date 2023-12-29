@@ -66,7 +66,7 @@ const profileCommandCallback = async ({ ack, respond, client, payload }) => {
       enrolledProgram,
       studyPermitDate: studyPermitDate ? new Date(studyPermitDate) : null,
       workPermitDate: workPermitDate ? new Date(workPermitDate) : null,
-      studentId: admission_number || studentFound.text_105,
+      studentId: +admission_number || +studentFound.text_105,
     };
     await respond(profileMsg(studentInfo));
     const newStudent = await prisma.student.create({

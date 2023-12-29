@@ -1,5 +1,13 @@
 const profileMsg = (info) => {
-  const blocks = [];
+  const blocks = [
+    {
+      type: "section",
+      text: {
+        type: "mrkdwn",
+        text: `Hi *${info.firstName}*! :paw_prints: \n Here is some information that I know about you:`,
+      },
+    },
+  ];
   if (info.studentId) {
     blocks.push({
       type: "section",
