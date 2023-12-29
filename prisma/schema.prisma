@@ -60,7 +60,7 @@ model Student {
   advisorName       String?
   citizenship       String?
   sinNumber         String?
-  studentPermitDate DateTime?
+  studyPermitDate   DateTime?
   workPermitDate    DateTime?
   classeId          Int                 @unique
   studentId         Int
