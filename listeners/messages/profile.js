@@ -5,7 +5,7 @@ const profileMsg = (info) => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `:identification_card: Your student ID is **${info.studentId}**.`,
+        text: `:identification_card: Your student ID is *${info.studentId}*.`,
       },
     });
   }
@@ -14,7 +14,7 @@ const profileMsg = (info) => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `:mortar_board: You are currently enrolled in **${info.enrolledProgram}**.`,
+        text: `:mortar_board: You are currently enrolled in *${info.enrolledProgram}*.`,
       },
     });
   }
@@ -23,7 +23,7 @@ const profileMsg = (info) => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `:house: You currently live at **${info.address}**.`,
+        text: `:house: You currently live at *${info.address}*.`,
       },
     });
   }
@@ -32,7 +32,7 @@ const profileMsg = (info) => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `:telephone_receiver: Your contact number is **${info.contact}**.`,
+        text: `:telephone_receiver: Your contact number is *${info.contact}*.`,
       },
     });
   }
@@ -41,7 +41,7 @@ const profileMsg = (info) => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `:earth_americas: You are from **${info.citizenship}**.`,
+        text: `:earth_americas: You are from *${info.citizenship}*.`,
       },
     });
   }
@@ -50,7 +50,7 @@ const profileMsg = (info) => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `:information_desk_person: Your student advisor is **${info.advisorName}**.`,
+        text: `:information_desk_person: Your student advisor is *${info.advisorName}*.`,
       },
     });
   }
