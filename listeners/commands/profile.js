@@ -33,7 +33,7 @@ const profileCommandCallback = async ({ ack, respond, client, payload }) => {
     const {
       first_name: firstName,
       last_name: lastName,
-      email,
+      student_email: email,
       gender,
       student_dob: dob,
       address,
