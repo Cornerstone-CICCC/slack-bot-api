@@ -1,6 +1,5 @@
 const calendarCallback = async ({ ack, respond }) => {
   try {
-    console.log("before hitting this callback");
     await ack();
     await respond({
       blocks: [

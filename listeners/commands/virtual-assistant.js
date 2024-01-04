@@ -1,3 +1,6 @@
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+
 const virtualAssistantCallback = async ({ ack, respond }) => {
   try {
     await ack();

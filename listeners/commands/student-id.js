@@ -1,3 +1,6 @@
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+
 const studentIdCallback = async ({ ack, respond }) => {
   try {
     await ack();
