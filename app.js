@@ -1,9 +1,6 @@
 const { App } = require("@slack/bolt");
 const { registerListeners } = require("./listeners");
 require("dotenv").config();
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
