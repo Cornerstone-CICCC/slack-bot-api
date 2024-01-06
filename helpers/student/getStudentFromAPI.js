@@ -1,4 +1,4 @@
-import { getReq } from "../request";
+import { getReq } from "../utils/request";
 
 const getStudentFromAPI = async (studentEmail) => {
   const endpoint = `studentsData?filter={"student_email":"${studentEmail}"}`;
