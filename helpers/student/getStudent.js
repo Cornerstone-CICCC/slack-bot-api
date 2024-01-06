@@ -1,6 +1,6 @@
-import { getStudentFromDB } from "./getStudentFromDB";
-import { getStudentFromAPI } from "./getStudentFromAPI";
-import { saveStudent } from "./saveStudent";
+const { getStudentFromDB } = require("./getStudentFromDB");
+const { getStudentFromAPI } = require("./getStudentFromAPI");
+const { saveStudent } = require("./saveStudent");
 
 const getStudent = (studentEmail) => {
   const savedStudent = getStudentFromDB(studentEmail);
