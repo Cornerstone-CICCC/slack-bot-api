@@ -1,6 +1,6 @@
 const { getReq } = require("../../helpers/request");
-const { PrismaClient } = require("@prisma/client");
 const { profileMsg } = require("../messages/profile");
+const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const profileCommandCallback = async ({ ack, respond, client, payload }) => {

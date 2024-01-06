@@ -21,7 +21,14 @@ const coopDocsCallback = async ({ ack, respond }) => {
           type: "section",
           text: {
             type: "mrkdwn",
-            text: "If you have any questions, please contact the Co-op Compliance Team at <mailto:compliance.assistant@ciccc.ca|this email>.",
+            text: "If you have any questions, please contact the Co-op Compliance Team:",
+          },
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: "• Swetha - Co-op Compliance Assistant - <mailto:compliance.assistant@ciccc.ca|compliance.assistant@ciccc.ca>  \n • Bruno - Co-op Compliance Manager - <mailto:compliance.manager@ciccc.ca|compliance.manager@ciccc.ca>",
           },
         },
       ],

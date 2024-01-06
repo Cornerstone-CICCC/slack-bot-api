@@ -1,9 +1,14 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const { getStudent } = require("../../helpers/student/getStudent");
 
-const studentIdCallback = async ({ ack, respond }) => {
+const studentIdFormCallback = async ({ ack, respond }) => {
   try {
     await ack();
+    // const info = await client.users.info({
+    //   user: payload.user_id,
+    // });
+    // const slackEmail = info.user.profile.email;
+    const slackEmail = "head.tech@ciccc.ca";
+    let studentFound = await getStudent(slackEmail);
     await respond({
       blocks: [
         {
@@ -28,4 +33,4 @@ const studentIdCallback = async ({ ack, respond }) => {
   }
 };
 
-module.exports = { studentIdCallback };
+module.exports = { studentIdFormCallback };
