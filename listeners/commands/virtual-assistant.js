@@ -34,7 +34,7 @@ const virtualAssistantCallback = async ({ ack, respond }) => {
           type: "section",
           text: {
             type: "mrkdwn",
-            text: `Your student ID is *${studentFound.studentId}*`,
+            text: `:identification_card: Your student ID is *${studentFound.studentId}*`,
           },
         },
       ],
