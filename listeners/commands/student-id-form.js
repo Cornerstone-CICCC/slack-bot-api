@@ -3,11 +3,10 @@ const { getStudent } = require("../../helpers/student/getStudent");
 const studentIdFormCallback = async ({ ack, respond }) => {
   try {
     await ack();
-    // const info = await client.users.info({
-    //   user: payload.user_id,
-    // });
-    // const slackEmail = info.user.profile.email;
-    const slackEmail = "head.tech@ciccc.ca";
+    const info = await client.users.info({
+      user: payload.user_id,
+    });
+    const slackEmail = info.user.profile.email;
     let studentFound = await getStudent(slackEmail);
     await respond({
       blocks: [
@@ -22,7 +21,21 @@ const studentIdFormCallback = async ({ ack, respond }) => {
           type: "section",
           text: {
             type: "mrkdwn",
-            text: ":bulb: If the form is closed or you have any questions regarding your student ID, please contact the Student Services team at <mailto:info@ciccc.ca|this email>.",
+            text: ":bulb: *TIP:* You will need to provide your student ID number. As a nice friend, I already have it for you. :wink:",
+          },
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: `:identification_card: Your student ID is *${studentFound.studentId}*`,
+          },
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: ":information_source: If the form is closed or you have any questions regarding your student ID, please contact the Student Services team at <mailto:info@ciccc.ca|this email>.",
           },
         },
       ],

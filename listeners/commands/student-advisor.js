@@ -3,11 +3,10 @@ const { getStudent } = require("../../helpers/student/getStudent");
 const studentIdFormCallback = async ({ ack, respond }) => {
   try {
     await ack();
-    // const info = await client.users.info({
-    //   user: payload.user_id,
-    // });
-    // const slackEmail = info.user.profile.email;
-    const slackEmail = "head.tech@ciccc.ca";
+    const info = await client.users.info({
+      user: payload.user_id,
+    });
+    const slackEmail = info.user.profile.email;
     let studentFound = await getStudent(slackEmail);
     if (!studentFound) {
       await respond(
