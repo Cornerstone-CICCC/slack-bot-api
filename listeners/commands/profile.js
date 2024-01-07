@@ -12,7 +12,7 @@ const profileCommandCallback = async ({ ack, respond, client, payload }) => {
       user: payload.user_id,
     });
     const slackEmail = info.user.profile.email;
-    const savedStudent = getStudentFromDB(slackEmail);
+    const savedStudent = await getStudentFromDB(slackEmail);
     if (savedStudent) {
       await respond(profileMsg(savedStudent));
       return;
