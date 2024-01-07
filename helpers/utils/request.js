@@ -2,7 +2,6 @@ const axios = require("axios");
 
 const getReq = async (endpoint) => {
   const url = `${process.env.API_URL}/${endpoint}`;
-  console.log("fetching at", url);
   try {
     const response = await axios.get(url, {
       auth: {

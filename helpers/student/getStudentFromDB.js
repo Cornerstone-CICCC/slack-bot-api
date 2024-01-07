@@ -7,7 +7,6 @@ const getStudentFromDB = async (studentEmail) => {
       email: studentEmail,
     },
   });
-  console.log("found", studentFound);
   return studentFound;
 };
 
