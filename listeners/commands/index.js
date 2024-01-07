@@ -7,6 +7,7 @@ const { refundCallback } = require("./refund");
 const { coopDocsCallback } = require("./coop-docs");
 const { aboutCallback } = require("./about");
 const { helpCallback } = require("./help");
+const { gradesCallback } = require("./grades");
 
 module.exports.register = (app) => {
   app.command("/calendar", calendarCallback);
@@ -22,4 +23,5 @@ module.exports.register = (app) => {
   app.command("/student-id-form", studentIdFormCallback);
   app.command("/about", aboutCallback);
   app.command("/help", helpCallback);
+  app.command("/grades", gradesCallback);
 };
