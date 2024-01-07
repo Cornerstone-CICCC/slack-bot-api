@@ -1,19 +1,13 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const { getStudent } = require("../../helpers/student/getStudent");
 
-const virtualAssistantCallback = async ({ ack, respond }) => {
+const virtualAssistantCallback = async ({ ack, respond, client, payload }) => {
   try {
     await ack();
-    // const info = await client.users.info({
-    //   user: payload.user_id,
-    // });
-    // const slackEmail = info.user.profile.email;
-    const slackEmail = "head.tech@ciccc.ca";
-    let studentFound = await prisma.student.findUnique({
-      where: {
-        email: slackEmail,
-      },
+    const info = await client.users.info({
+      user: payload.user_id,
     });
+    const slackEmail = info.user.profile.email;
+    let studentFound = await getStudent(slackEmail);
     await respond({
       blocks: [
         {

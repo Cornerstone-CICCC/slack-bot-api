@@ -19,6 +19,8 @@
     "dotenv": "^16.3.1"
   },
   "devDependencies": {
-    "prisma": "^5.7.0"
+    "@mermaid-js/mermaid-cli": "^10.6.1",
+    "prisma": "^5.7.0",
+    "prisma-erd-generator": "^1.11.2"
   }
 }
