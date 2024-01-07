@@ -2,6 +2,7 @@ const axios = require("axios");
 
 const getReq = async (endpoint) => {
   const url = `${process.env.API_URL}/${endpoint}`;
+  console.log("fetching at", url);
   try {
     const response = await axios.get(url, {
       auth: {
@@ -9,6 +10,7 @@ const getReq = async (endpoint) => {
         password: process.env.API_PASSWORD,
       },
     });
+    console.log("response", response.data.data);
     return response.data;
   } catch (error) {
     console.error(`error at fetching ${url}`, error);
