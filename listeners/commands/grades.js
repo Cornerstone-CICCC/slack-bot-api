@@ -1,96 +1,28 @@
 const { getStudent } = require("../../helpers/student/getStudent");
-const { getReq } = require("../../helpers/utils/request");
+const { getStudentGrades } = require("../../helpers/grades/getGrades");
+const { gradesMsg } = require("../messages/grades");
 
-const gradesCallback = async ({ ack, respond }) => {
+const gradesCallback = async ({ ack, respond, client, payload }) => {
   try {
     await ack();
-    // const info = await client.users.info({
-    //   user: payload.user_id,
-    // });
-    // const slackEmail = info.user.profile.email;
-    // const studentFound = await getStudent(slackEmail);
-    // if (!studentFound) {
-    //   await respond(
-    //     "I don't think I remember you. Please make sure your email on Slack is the same as the one on Classe365."
-    //   );
-    //   return;
-    // }
-    await respond("Please, let me check your grades...");
-    // const studentGrades = await getStudentGrades(studentFound.classeId);
-    // const studentGrades = await getReq(
-    //   `studentScore?acds_id=1&id=${studentFound.classeId}`
-    // );
-    const response = await getReq(`studentScore?acds_id=1&id=7786`);
-    const studentGrades = [...response.data];
-    const slackBlocks = [
-      {
-        type: "section",
-        text: {
-          type: "mrkdwn",
-          text: "This is what I found:",
-        },
-      },
-    ];
-    studentGrades.forEach((grade, i) => {
-      const { subject, assessments } = grade;
-      console.log("subject", subject.subject_name);
-      if (!subject.dis_published_score_value) return;
-      slackBlocks.push({
-        type: "header",
-        text: {
-          type: "plain_text",
-          text: subject.subject_name,
-          emoji: true,
-        },
-      });
-      const blockFields = [];
-      assessments.forEach((assessment) => {
-        console.log("assessment", assessment.name);
-        if (!assessment.dis_score) return;
-        blockFields.push({
-          type: "mrkdwn",
-          text: `*${assessment.name}:*`,
-        });
-        blockFields.push({
-          type: "mrkdwn",
-          text: `${assessment.dis_score}`,
-        });
-      });
-      slackBlocks.push({
-        type: "section",
-        fields: blockFields,
-      });
-      slackBlocks.push({
-        type: "section",
-        fields: [
-          {
-            type: "mrkdwn",
-            text: "*Final Score:*",
-          },
-          {
-            type: "mrkdwn",
-            text: `*${subject.dis_published_score_value}*`,
-          },
-        ],
-      });
-      if (i < studentGrades.length - 1) {
-        slackBlocks.push({
-          type: "divider",
-        });
-      }
+    const info = await client.users.info({
+      user: payload.user_id,
     });
-    if (slackBlocks.length === 1) {
-      await respond({
-        type: "section",
-        text: {
-          type: "mrkdwn",
-          text: "I couldn't find any grades for you. Please contact your Program Manager.",
-        },
-      });
+    const slackEmail = info.user.profile.email;
+    const studentFound = await getStudent(slackEmail);
+    if (!studentFound) {
+      await respond(
+        "I don't think I remember you. Please make sure your email on Slack is the same as the one on Classe365."
+      );
       return;
     }
+    await respond("Please, let me check your grades...");
+    const studentGrades = await getStudentGrades({
+      classeId: studentFound.classeId,
+      id: studentFound.id,
+    });
     await respond({
-      blocks: slackBlocks,
+      blocks: gradesMsg(studentGrades),
     });
     return;
   } catch (error) {

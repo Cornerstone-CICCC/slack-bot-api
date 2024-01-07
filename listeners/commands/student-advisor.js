@@ -1,6 +1,6 @@
 const { getStudent } = require("../../helpers/student/getStudent");
 
-const studentIdFormCallback = async ({ ack, respond }) => {
+const studentIdFormCallback = async ({ ack, respond, client, payload }) => {
   try {
     await ack();
     const info = await client.users.info({

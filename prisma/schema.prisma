@@ -5,19 +5,22 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Program {
-  id                Int                 @id @default(autoincrement())
-  title             String
-  code              String?
-  classeId          Int?                @unique
-  createdAt         DateTime            @default(now())
-  sections          Section[]
-  SubjectEnrollment SubjectEnrollment[]
+  id        Int       @id @default(autoincrement())
+  title     String
+  code      String?
+  classeId  Int?      @unique
+  createdAt DateTime  @default(now())
+  sections  Section[]
 }
 
 model Section {
@@ -29,7 +32,6 @@ model Section {
   createdAt         DateTime            @default(now())
   Program           Program             @relation(fields: [programId], references: [id])
   subjects          Subject[]
-  SubjectEnrollment SubjectEnrollment[]
   SectionEnrollment SectionEnrollment[]
 }
 
@@ -39,7 +41,7 @@ model Subject {
   code              String?
   credits           Int?
   type              String
-  classeId          Int?                @unique
+  classeId          Int                 @unique
   sectionId         Int
   createdAt         DateTime            @default(now())
   Section           Section             @relation(fields: [sectionId], references: [id])
@@ -78,17 +80,11 @@ model SubjectEnrollment {
   studentId                 Int
   subjectId                 Int
   classeSubjectId           Int
-  sectionId                 Int
-  classeSectionId           Int
-  programId                 Int
-  classeProgramId           Int
   sectionEnrollmentId       Int
   classeSectionEnrollmentId Int
   status                    String?           @default("Not Set")
   Student                   Student           @relation(fields: [studentId], references: [id])
   Subject                   Subject           @relation(fields: [subjectId], references: [id])
-  Section                   Section           @relation(fields: [sectionId], references: [id])
-  Program                   Program           @relation(fields: [programId], references: [id])
   SectionEnrollment         SectionEnrollment @relation(fields: [sectionEnrollmentId], references: [id])
 }
 
@@ -121,7 +117,6 @@ model Assessment {
   name          String
   classeId      Int      @unique
   weight        Int
-  type          String
   points        Int
   passingPoints Int
   createdAt     DateTime @default(now())

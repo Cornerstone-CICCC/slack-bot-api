@@ -2,14 +2,14 @@ const { getStudentFromDB } = require("./getStudentFromDB");
 const { getStudentFromAPI } = require("./getStudentFromAPI");
 const { saveStudent } = require("./saveStudent");
 
-const getStudent = (studentEmail) => {
-  const savedStudent = getStudentFromDB(studentEmail);
+const getStudent = async (studentEmail) => {
+  const savedStudent = await getStudentFromDB(studentEmail);
   if (savedStudent) {
     return savedStudent;
   }
-  const newStudent = getStudentFromAPI(studentEmail);
+  const newStudent = await getStudentFromAPI(studentEmail);
   if (newStudent) {
-    const newSavedStudent = saveStudent(newStudent);
+    const newSavedStudent = await saveStudent(newStudent);
     return newSavedStudent;
   }
   return null;

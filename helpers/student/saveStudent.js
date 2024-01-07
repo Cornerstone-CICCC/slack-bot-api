@@ -1,3 +1,6 @@
+const { saveProgram } = require("../programs/saveProgram");
+const { saveSection } = require("../sections/saveSection");
+const { saveSubject } = require("../subjects/saveSubject");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
@@ -40,34 +43,27 @@ const saveStudent = async (student) => {
     workPermitDate: workPermitDate ? new Date(workPermitDate) : null,
     studentId: +admission_number || +student.text_105,
   };
-  //   await respond(profileMsg(studentInfo));
-  const newStudent = await prisma.student.create({
-    data: studentInfo,
+  const newStudent = await prisma.student.upsert({
+    where: {
+      classeId,
+    },
+    update: studentInfo,
+    create: studentInfo,
   });
   student.enrollments.forEach(async (enrollment) => {
-    const newProgram = await prisma.program.upsert({
-      where: {
-        classeId: enrollment.class_id,
-      },
-      update: {},
-      create: {
-        title: enrollment.class_name,
-        code: enrollment.class_code,
-        classeId: enrollment.class_id,
-      },
-    });
-    const newSection = await prisma.section.upsert({
-      where: {
-        classeId: enrollment.section_id,
-      },
-      update: {},
-      create: {
-        title: enrollment.section_name,
-        code: enrollment.section_code,
-        classeId: enrollment.section_id,
-        programId: newProgram.id,
-      },
-    });
+    const programInfo = {
+      title: enrollment.class_name,
+      code: enrollment.class_code,
+      classeId: enrollment.class_id,
+    };
+    const newProgram = await saveProgram(programInfo);
+    const sectionInfo = {
+      title: enrollment.section_name,
+      code: enrollment.section_code,
+      classeId: enrollment.section_id,
+      programId: newProgram.id,
+    };
+    const newSection = await saveSection(sectionInfo);
     const newSectionEnrollment = await prisma.sectionEnrollment.create({
       data: {
         studentId: newStudent.id,
@@ -79,29 +75,20 @@ const saveStudent = async (student) => {
       },
     });
     enrollment.subjects.forEach(async (subject) => {
-      const newSubject = await prisma.subject.upsert({
-        where: {
-          classeId: subject.id,
-        },
-        update: {},
-        create: {
-          title: subject.subject_name,
-          code: subject.subject_code,
-          classeId: subject.id,
-          credits: +subject.credits,
-          sectionId: newSection.id,
-          type: subject.type,
-        },
-      });
+      const subjectInfo = {
+        title: subject.subject_name,
+        code: subject.subject_code,
+        classeId: subject.id,
+        credits: +subject.credits,
+        sectionId: newSection.id,
+        type: subject.type,
+      };
+      const newSubject = await saveSubject(subjectInfo);
       await prisma.subjectEnrollment.create({
         data: {
           studentId: newStudent.id,
           subjectId: newSubject.id,
           classeSubjectId: subject.id,
-          sectionId: newSection.id,
-          classeSectionId: enrollment.section_id,
-          programId: newProgram.id,
-          classeProgramId: enrollment.class_id,
           sectionEnrollmentId: newSectionEnrollment.id,
           classeSectionEnrollmentId: enrollment.enrollment_id,
           status: subject.enrollment_status,
