@@ -1,7 +1,7 @@
 const { getStudent } = require("../../helpers/student/getStudent");
 const { getReq } = require("../../helpers/utils/request");
 
-const studentIdFormCallback = async ({ ack, respond }) => {
+const gradesCallback = async ({ ack, respond }) => {
   try {
     await ack();
     // const info = await client.users.info({
@@ -95,4 +95,4 @@ const studentIdFormCallback = async ({ ack, respond }) => {
   }
 };
 
-module.exports = { studentIdFormCallback };
+module.exports = { gradesCallback };
