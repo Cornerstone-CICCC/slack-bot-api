@@ -18,7 +18,7 @@ const profileCommandCallback = async ({ ack, respond, client, payload }) => {
       return;
     }
     await respond("Wait a second, let me check my memory...");
-    const fetchStudent = getStudentFromAPI(slackEmail);
+    const fetchStudent = await getStudentFromAPI(slackEmail);
     if (!fetchStudent) {
       await respond(
         "I don't think I remember you. Please make sure your email on Slack is the same as the one on Classe365."
