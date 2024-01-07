@@ -20,9 +20,7 @@ const gradesCallback = async ({ ack, respond }) => {
     // const studentGrades = await getReq(
     //   `studentScore?acds_id=1&id=${studentFound.classeId}`
     // );
-    console.log("before getReq");
     const response = await getReq(`studentScore?acds_id=1&id=7786`);
-    console.log("after getReq");
     const studentGrades = [...response.data];
     const slackBlocks = [
       {
@@ -33,7 +31,8 @@ const gradesCallback = async ({ ack, respond }) => {
         },
       },
     ];
-    studentGrades.forEach((subject, i) => {
+    studentGrades.forEach((grade, i) => {
+      const { subject, assessments } = grade;
       console.log("subject", subject.subject_name);
       if (!subject.dis_published_score_value) return;
       slackBlocks.push({
@@ -45,7 +44,7 @@ const gradesCallback = async ({ ack, respond }) => {
         },
       });
       const blockFields = [];
-      subject.assessments.forEach((assessment) => {
+      assessments.forEach((assessment) => {
         console.log("assessment", assessment.name);
         if (!assessment.dis_score) return;
         blockFields.push({
@@ -95,7 +94,7 @@ const gradesCallback = async ({ ack, respond }) => {
     });
     return;
   } catch (error) {
-    console.error("error at get grades", error.message || error);
+    console.error("error at get grades", error);
   }
 };
 
