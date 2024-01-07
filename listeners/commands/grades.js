@@ -20,7 +20,9 @@ const gradesCallback = async ({ ack, respond }) => {
     // const studentGrades = await getReq(
     //   `studentScore?acds_id=1&id=${studentFound.classeId}`
     // );
-    const studentGrades = await getReq(`studentScore?acds_id=1&id=7786`);
+    const { data: studentGrades } = await getReq(
+      `studentScore?acds_id=1&id=7786`
+    );
     console.log("grades", studentGrades);
     const slackBlocks = [
       {
