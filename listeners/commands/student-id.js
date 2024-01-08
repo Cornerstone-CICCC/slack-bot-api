@@ -1,6 +1,6 @@
 const { getStudent } = require("../../helpers/student/getStudent");
 
-const studentAdvisorCallback = async ({ ack, respond, client, payload }) => {
+const studentIdCallback = async ({ ack, respond, client, payload }) => {
   try {
     await ack();
     const info = await client.users.info({
@@ -14,11 +14,13 @@ const studentAdvisorCallback = async ({ ack, respond, client, payload }) => {
       );
       return;
     }
-    await respond(`Your student advisor is *${studentFound.advisorName}*.`);
+    await respond(
+      `:identification_card: Your student ID is *${studentFound.studentId}*`
+    );
     return;
   } catch (error) {
     console.error(error);
   }
 };
 
-module.exports = { studentAdvisorCallback };
+module.exports = { studentIdCallback };
