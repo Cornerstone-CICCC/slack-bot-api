@@ -11,6 +11,7 @@ const saveGrades = async (grades, studentId) => {
       },
     });
     grade.assessments.forEach(async (assessment) => {
+      console.log("assessment", assessment);
       const assessmentInfo = {
         name: assessment.name,
         classeId: assessment.assessment_id,
@@ -18,6 +19,7 @@ const saveGrades = async (grades, studentId) => {
         points: assessment.points,
         passingPoints: assessment.pass_points,
       };
+      console.log("assessmentInfo", assessmentInfo);
       const savedAssessment = await saveAssessment(assessmentInfo);
       const gradeInfo = {
         studentId,
