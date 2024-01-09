@@ -26,6 +26,7 @@ const saveGrades = async (grades, studentId) => {
         score: assessment.score,
         subjectId: savedSubject.id,
         assessmentId: savedAssessment.id,
+        gradeId: `${savedSubject.id}${savedAssessment.id}${studentId}`,
       };
       await saveGrade(gradeInfo);
     });
