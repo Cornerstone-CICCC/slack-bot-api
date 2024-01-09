@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 const saveGrade = async (gradeInfo) => {
   const newGrade = await prisma.grade.upsert({
     where: {
-      classeId: gradeInfo.classeId,
+      gradeId: gradeInfo.gradeId,
     },
     update: gradeInfo,
     create: gradeInfo,

@@ -107,6 +107,7 @@ model Grade {
   score        Int
   subjectId    Int
   assessmentId Int
+  gradeId      String     @unique
   Assessment   Assessment @relation(fields: [assessmentId], references: [id])
   Subject      Subject    @relation(fields: [subjectId], references: [id])
   Student      Student    @relation(fields: [studentId], references: [id])
